@@ -21,6 +21,13 @@ public class SyncRequestEntity {
      */
 
     private String checkstatus;
+    /**
+     * CategoryId : 2147483647
+     * CurrentStudyTimeLI : 9223372036854775807
+     */
+
+    private int CategoryId;
+    private long CurrentStudyTimeLI;
 
     public long getCurrentStudyTime() {
         return CurrentStudyTime;
@@ -60,5 +67,21 @@ public class SyncRequestEntity {
 
     public void setCheckstatus(String checkstatus) {
         this.checkstatus = checkstatus;
+    }
+
+    public int getCategoryId() {
+        return CategoryId;
+    }
+
+    public void setCategoryId(int CategoryId) {
+        this.CategoryId = CategoryId;
+    }
+
+    public long getCurrentStudyTimeLI() {
+        return CurrentStudyTimeLI;
+    }
+
+    public void setCurrentStudyTimeLI(long CurrentStudyTimeLI) {
+        this.CurrentStudyTimeLI = CurrentStudyTimeLI;
     }
 }

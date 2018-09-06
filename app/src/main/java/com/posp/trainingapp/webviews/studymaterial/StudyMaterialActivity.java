@@ -53,7 +53,7 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
     SharedPreferences.Editor editor;
 
     LoginEntity loginEntity;
-    int module;
+    int module, type;
     private static final int ADMIN_INTENT = 15;
     private static final String description = "Some Description About Your Admin";
     private DevicePolicyManager mDevicePolicyManager;
@@ -70,10 +70,17 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         studyMaterialEntity = getIntent().getParcelableExtra("STUDY_MATERIAL");
         module = getIntent().getIntExtra("MODULE", -1);
+        type = getIntent().getIntExtra(Constants.TYPE, -1);
         loginEntity = new LoginFacade(this).getUser();
-        initializeLockScreen();
+
+        if (type == Constants.GENERAL_INSURANCE)
+            getSupportActionBar().setTitle("Study Material GI");
+        else
+            getSupportActionBar().setTitle("Study Material LI");
+        //initializeLockScreen();
       /*  if (!isAdmin) {
             registerAdmin();
         }*/
@@ -90,6 +97,8 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
 
             synchronized public void run() {
                 SyncRequestEntity syncRequestEntity = new SyncRequestEntity();
+                syncRequestEntity.setCurrentStudyTimeLI(0);
+                syncRequestEntity.setCategoryId(type);
                 syncRequestEntity.setFBAId(loginEntity.getFBAId());
                 syncRequestEntity.setModuleNo(module);
                 syncRequestEntity.setUserId(loginEntity.getUserId());
@@ -114,11 +123,31 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
         startSyncTimer();
 
 
-        if (!loginEntity.isIsEligible()) {
+        /*if (!loginEntity.isIsEligible()) {
             long currTime = loginEntity.getCurrentStudyTime();
             long totalTime = loginEntity.getTotalStudyTime();
             startTimer(totalTime - currTime);
+        }*/
+        if (type == Constants.GENERAL_INSURANCE) {
+
+            if (!loginEntity.isIsEligibleGI()) {
+                long currTime = loginEntity.getCurrentStudyTime();
+                long totalTime = loginEntity.getTotalStudyTime();
+                startTimer(totalTime - currTime);
+            }
+
+
+        } else if (type == Constants.LIFE_INSURANCE) {
+
+            if (!loginEntity.isIsEligibleLI()) {
+                long currTime = loginEntity.getCurrentStudyTimeLI();
+                long totalTime = loginEntity.getTotalStudyTimeLI();
+                startTimer(totalTime - currTime);
+            }
+
+
         }
+
 
     }
 
@@ -320,8 +349,13 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
         if (response instanceof SyncTimeResponse) {
             if (response.getStatusNo() == 0) {
                 if (((SyncTimeResponse) response).isIsLogin()) {
+
                     loginEntity.setCurrentStudyTime(((SyncTimeResponse) response).getCurrentStudyTime());
                     loginEntity.setIsEligible(((SyncTimeResponse) response).isIsEligible());
+                    loginEntity.setIsEligibleGI(((SyncTimeResponse) response).isIsGIEligible());
+                    loginEntity.setCurrentStudyTimeLI(((SyncTimeResponse) response).getCurrentStudyTimeLI());
+                    loginEntity.setIsEligibleLI(((SyncTimeResponse) response).isIsLIEligible());
+
                     new LoginFacade(StudyMaterialActivity.this).storeUser(loginEntity);
                     Log.d("Time", "" + ((SyncTimeResponse) response).getTotalStudyTime() + " - " + ((SyncTimeResponse) response).getCurrentStudyTime());
                 } else {

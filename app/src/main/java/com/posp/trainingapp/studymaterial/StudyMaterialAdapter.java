@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.posp.trainingapp.R;
 import com.posp.trainingapp.core.models.StudyMaterialEntity;
+import com.posp.trainingapp.utility.Constants;
 import com.posp.trainingapp.webviews.studymaterial.StudyMaterialActivity;
 
 import java.util.List;
@@ -26,15 +27,17 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
 
     Context mContext;
     List<StudyMaterialEntity> studyMaterialEntities;
+    int type;
 
-    public StudyMaterialAdapter(Context context, List<StudyMaterialEntity> studyMaterialEntities) {
+    public StudyMaterialAdapter(Context context, List<StudyMaterialEntity> studyMaterialEntities, int type) {
         this.mContext = context;
         this.studyMaterialEntities = studyMaterialEntities;
+        this.type = type;
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTitle, tvLink, tvPractice,tvStudy;
+        public TextView tvTitle, tvLink, tvPractice, tvStudy;
         RelativeLayout llStudymaterial;
         LinearLayout llStudy;
         Button btnPractice;
@@ -73,7 +76,8 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, ModulePracticeActivity.class)
-                        .putExtra("MODULE", position + 1));
+                        .putExtra("MODULE", position + 1)
+                        .putExtra(Constants.TYPE, type));
             }
         });
         holder.llStudy.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +85,8 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, StudyMaterialActivity.class)
                         .putExtra("STUDY_MATERIAL", studyMaterialEntity)
-                        .putExtra("MODULE", position + 1));
+                        .putExtra("MODULE", position + 1)
+                        .putExtra(Constants.TYPE, type));
             }
         });
     }

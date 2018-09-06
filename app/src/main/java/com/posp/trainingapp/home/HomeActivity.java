@@ -24,7 +24,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    TextView tvStartExam, tvStudyMaterial, tvMsg, tvCongrats;
+    TextView tvStartExam, tvStudyMaterial, tvMsg, tvCongrats, tvStudyMaterialGI, tvStudyMaterialLI;
     LoginEntity loginEntity;
 
     @Override
@@ -57,6 +57,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private void initialize() {
         tvStartExam = (TextView) findViewById(R.id.tvStartExam);
         tvStudyMaterial = (TextView) findViewById(R.id.tvStudyMaterial);
+        tvStudyMaterialLI = (TextView) findViewById(R.id.tvStudyMaterialLI);
+        tvStudyMaterialGI = (TextView) findViewById(R.id.tvStudyMaterialGI);
         tvMsg = (TextView) findViewById(R.id.tvMsg);
         tvCongrats = (TextView) findViewById(R.id.tvCongrats);
         sharedPreferences = getSharedPreferences(Constants.SHAREDPREFERENCE_TITLE, MODE_PRIVATE);
@@ -67,6 +69,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private void setListener() {
         tvStartExam.setOnClickListener(this);
         tvStudyMaterial.setOnClickListener(this);
+        tvStudyMaterialGI.setOnClickListener(this);
+        tvStudyMaterialLI.setOnClickListener(this);
 
     }
 
@@ -78,6 +82,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.tvStudyMaterial:
                 startActivity(new Intent(HomeActivity.this, StudyMaterialAvailable.class));
+                break;
+            case R.id.tvStudyMaterialGI:
+                startActivity(new Intent(HomeActivity.this, StudyMaterialAvailable.class).putExtra(Constants.TYPE, Constants.GENERAL_INSURANCE));
+                break;
+            case R.id.tvStudyMaterialLI:
+                startActivity(new Intent(HomeActivity.this, StudyMaterialAvailable.class).putExtra(Constants.TYPE, Constants.LIFE_INSURANCE));
                 break;
         }
 

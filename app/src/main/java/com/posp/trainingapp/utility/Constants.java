@@ -17,6 +17,9 @@ public class Constants {
 
     public static long SESSION_TIMEOUT_TIME = 600;//in seconds
     public static long SYNC_TIMER = 2;//in minutes
+    public static String TYPE = "type";
+    public static final int LIFE_INSURANCE = 1;
+    public static final int GENERAL_INSURANCE = 2;
 
 
 }

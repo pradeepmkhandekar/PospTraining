@@ -19,13 +19,13 @@ public abstract class RetroRequestBuilder {
    // public final static String secondaryUrl = "/EducationAppWebService.svc";
 
     //live url policyboss
-    protected String basicUrl = "http://edu.policyboss.com";
-    public final static String secondaryUrl = "/eduappservice/EducationAppWebService.svc";
+    //protected String basicUrl = "http://edu.policyboss.com";
+    //public final static String secondaryUrl = "/eduappservice/EducationAppWebService.svc";
 
 
     //uat url
-    //protected String basicUrl = "http://49.50.95.141:99";
-    //public final static String secondaryUrl = "/EducationAppWebService.svc";
+    protected String basicUrl = "http://49.50.95.141:97";
+    public final static String secondaryUrl = "/EducationAppWebService.svc";
 
     //uat url
     //protected String basicUrl = "http://uat.oyeraddi.com";

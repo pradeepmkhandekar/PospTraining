@@ -51,6 +51,19 @@ public class LoginEntity {
      */
 
     private boolean IsEligible;
+    /**
+     * CurrentStudyTimeLI : 9223372036854775807
+     * IsEligibleGI : true
+     * IsEligibleLI : true
+     * TotalStudyTimeGI : 9223372036854775807
+     * TotalStudyTimeLI : 9223372036854775807
+     */
+
+    private long CurrentStudyTimeLI;
+    private boolean IsEligibleGI;
+    private boolean IsEligibleLI;
+    private long TotalStudyTimeGI;
+    private long TotalStudyTimeLI;
 
     public String getCategory() {
         return Category;
@@ -178,5 +191,45 @@ public class LoginEntity {
 
     public void setIsEligible(boolean IsEligible) {
         this.IsEligible = IsEligible;
+    }
+
+    public long getCurrentStudyTimeLI() {
+        return CurrentStudyTimeLI;
+    }
+
+    public void setCurrentStudyTimeLI(long CurrentStudyTimeLI) {
+        this.CurrentStudyTimeLI = CurrentStudyTimeLI;
+    }
+
+    public boolean isIsEligibleGI() {
+        return IsEligibleGI;
+    }
+
+    public void setIsEligibleGI(boolean IsEligibleGI) {
+        this.IsEligibleGI = IsEligibleGI;
+    }
+
+    public boolean isIsEligibleLI() {
+        return IsEligibleLI;
+    }
+
+    public void setIsEligibleLI(boolean IsEligibleLI) {
+        this.IsEligibleLI = IsEligibleLI;
+    }
+
+    public long getTotalStudyTimeGI() {
+        return TotalStudyTimeGI;
+    }
+
+    public void setTotalStudyTimeGI(long TotalStudyTimeGI) {
+        this.TotalStudyTimeGI = TotalStudyTimeGI;
+    }
+
+    public long getTotalStudyTimeLI() {
+        return TotalStudyTimeLI;
+    }
+
+    public void setTotalStudyTimeLI(long TotalStudyTimeLI) {
+        this.TotalStudyTimeLI = TotalStudyTimeLI;
     }
 }

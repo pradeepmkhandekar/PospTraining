@@ -27,7 +27,7 @@ import com.posp.trainingapp.utility.Constants;
 import java.util.List;
 
 public class ModulePracticeActivity extends BaseActivity implements View.OnClickListener, IResponseSubcriber {
-    int module;
+    int module, type;
     Button btnModuleSubmit;
     RecyclerView rvModule;
     LoginEntity loginEntity;
@@ -45,9 +45,10 @@ public class ModulePracticeActivity extends BaseActivity implements View.OnClick
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         module = getIntent().getIntExtra("MODULE", -1);
+        type = getIntent().getIntExtra(Constants.TYPE, -1);
         init();
         showProgressDialog();
-        new ModulePracticeControllar(this).getModuleQuestion(module, loginEntity.getCategoryId(), loginEntity.getUserId(), this);
+        new ModulePracticeControllar(this).getModuleQuestion(module, type, loginEntity.getUserId(), this);
     }
 
     private void init() {

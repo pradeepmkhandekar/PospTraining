@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <provider
@@ -145,8 +145,8 @@
         <activity
             android:name="com.posp.trainingapp.studymaterial.ModulePracticeActivity"
             android:label="@string/title_activity_module_practice"
-            android:screenOrientation="portrait"
             android:parentActivityName="com.posp.trainingapp.studymaterial.StudyMaterialAvailable"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -155,31 +155,19 @@
         <activity
             android:name="com.posp.trainingapp.studymaterial.ModuleResultActivity"
             android:label="@string/title_activity_module_result"
-            android:screenOrientation="portrait"
             android:parentActivityName="com.posp.trainingapp.studymaterial.StudyMaterialAvailable"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.posp.trainingapp.studymaterial.StudyMaterialAvailable" />
         </activity>
 
-        <receiver
-            android:name="com.posp.trainingapp.utility.MyAdminReceiver"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/admin" />
-
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name="com.posp.trainingapp.requestadmin.RequestAdminActivity"
             android:label="@string/title_activity_request_admin"
-            android:screenOrientation="portrait"
             android:parentActivityName="com.posp.trainingapp.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -188,8 +176,8 @@
         <activity
             android:name="com.posp.trainingapp.studymaterial.ViewAnswerActivity"
             android:label="@string/title_activity_view_answer"
-            android:screenOrientation="portrait"
             android:parentActivityName="com.posp.trainingapp.studymaterial.StudyMaterialAvailable"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

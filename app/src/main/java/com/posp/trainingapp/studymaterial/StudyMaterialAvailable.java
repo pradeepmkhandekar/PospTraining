@@ -38,6 +38,7 @@ public class StudyMaterialAvailable extends BaseActivity implements IResponseSub
     LoginEntity loginEntity;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    int type = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class StudyMaterialAvailable extends BaseActivity implements IResponseSub
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPreferences = getSharedPreferences(Constants.SHAREDPREFERENCE_TITLE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        type = getIntent().getIntExtra(Constants.TYPE, 0);
+
         studyMaterialEntityList = new ArrayList<StudyMaterialEntity>();
         //studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI_Module 1", "https://drive.google.com/open?id=0BwKIYpAWxdc0U1JkMlRLRGRJbzQ", 5, 10, 0));
         //studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI_Module 2", "https://drive.google.com/open?id=0BwKIYpAWxdc0UmRWZDlCa2RDSlE", 12, 20, 0));
@@ -61,14 +64,24 @@ public class StudyMaterialAvailable extends BaseActivity implements IResponseSub
         //studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 4", "http://rupeeboss.org/HTMLPAGES/Training-Module-4.html", 3, 10, 0));
         //studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 5", "http://rupeeboss.org/HTMLPAGES/Training-Module-5.html", 3, 10, 0));
 
-        studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 1", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-1.html", 5, 10, 0));
-        studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 2", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-2.html", 12, 20, 0));
-        studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 3", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-3.html", 10, 30, 0));
-        studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 4", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-4.html", 3, 10, 0));
-        studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 5", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-5.html", 3, 10, 0));
+        if (type == Constants.LIFE_INSURANCE) {
+            getSupportActionBar().setTitle("Study Material LI");
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training LI-Module 1", "http://49.50.95.141:97/PdfImages/module-1.html", 5, 10, 2));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training LI-Module 2", "http://49.50.95.141:97/PdfImages/module-2.html", 12, 20, 2));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training LI-Module 3", "http://49.50.95.141:97/PdfImages/module-3.html", 10, 30, 2));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training LI-Module 4", "http://49.50.95.141:97/PdfImages/module-4.html", 3, 10, 2));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training LI-Module 5", "http://49.50.95.141:97/PdfImages/module-5.html", 3, 10, 2));
+        } else /*if (type == Constants.GENERAL_INSURANCE)*/ {
+            getSupportActionBar().setTitle("Study Material GI");
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 1", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-1.html", 5, 10, 0));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 2", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-2.html", 12, 20, 0));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 3", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-3.html", 10, 30, 0));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 4", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-4.html", 3, 10, 0));
+            studyMaterialEntityList.add(new StudyMaterialEntity("Regulatory Training GI-Module 5", "http://edu.policyboss.com/eduappservice/HTMLPAGES/Training-Module-5.html", 3, 10, 0));
+        }
 
 
-        mAdapter = new StudyMaterialAdapter(this, studyMaterialEntityList);
+        mAdapter = new StudyMaterialAdapter(this, studyMaterialEntityList,type);
         rvStudyMaterial = (RecyclerView) findViewById(R.id.rvStudyMaterial);
         rvStudyMaterial.setHasFixedSize(true);
 
