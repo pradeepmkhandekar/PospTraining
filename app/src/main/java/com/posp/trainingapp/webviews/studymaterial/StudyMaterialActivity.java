@@ -60,7 +60,7 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
     private DevicePolicyManager mDevicePolicyManager;
     private ComponentName mComponentName;
     boolean isAdmin;
-
+    SyncTimeResponse syncTimeResponse;
 
     @SuppressLint("JavascriptInterface")
     @Override
@@ -225,20 +225,46 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
             public void onFinish() {
                 txtTimer.setText("00:00:00");
                 AlertDialog.Builder builder = new AlertDialog.Builder(StudyMaterialActivity.this);
-                builder.setTitle("STUDY TIME FINISHED!!!");
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                startActivity(new Intent(StudyMaterialActivity.this, StartExamActivity.class));
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+
+                if (type == Constants.GENERAL_INSURANCE) {
+
+                    builder.setTitle("GI STUDY TIME FINISHED!!!");
+                    if (syncTimeResponse.isIsLIEligible()) {
+                        builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
+                    } else {
+                        builder.setMessage("Please Complete LI Training");
+                    }
+
+                } else {
+
+                    builder.setTitle("LI STUDY TIME FINISHED!!!");
+                    if (syncTimeResponse.isIsGIEligible()) {
+                        builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
+                    } else {
+                        builder.setMessage("Please Complete GI Training");
+                    }
+
+                }
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (syncTimeResponse.isIsEligible())
+                            startActivity(new Intent(StudyMaterialActivity.this, StartExamActivity.class));
+                        else {
+                            dialog.cancel();
+                            finish();
+                            finish();
+                        }
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
                 AlertDialog alert = builder.create();
                 alert.show();
 
