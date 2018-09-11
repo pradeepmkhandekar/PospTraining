@@ -224,53 +224,61 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
             @Override
             public void onFinish() {
                 txtTimer.setText("00:00:00");
-                AlertDialog.Builder builder = new AlertDialog.Builder(StudyMaterialActivity.this);
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-
-                if (type == Constants.GENERAL_INSURANCE) {
-
-                    builder.setTitle("GI STUDY TIME FINISHED!!!");
-                    if (syncTimeResponse.isIsLIEligible()) {
-                        builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
-                    } else {
-                        builder.setMessage("Please Complete LI Training");
-                    }
-
-                } else {
-
-                    builder.setTitle("LI STUDY TIME FINISHED!!!");
-                    if (syncTimeResponse.isIsGIEligible()) {
-                        builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
-                    } else {
-                        builder.setMessage("Please Complete GI Training");
-                    }
-
-                }
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (syncTimeResponse.isIsEligible())
-                            startActivity(new Intent(StudyMaterialActivity.this, StartExamActivity.class));
-                        else {
-                            dialog.cancel();
-                            finish();
-                            finish();
-                        }
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                if (syncTimeResponse != null)
+                    onFinishSyncTimer();
 
             }
         };
         countDownTimer.start();
+    }
+
+    public void onFinishSyncTimer() {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(StudyMaterialActivity.this);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        if (type == Constants.GENERAL_INSURANCE) {
+
+            builder.setTitle("GI STUDY TIME FINISHED!!!");
+            if (syncTimeResponse.isIsLIEligible()) {
+                builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
+            } else {
+                builder.setMessage("Please Complete LI Training");
+            }
+
+        } else {
+
+            builder.setTitle("LI STUDY TIME FINISHED!!!");
+            if (syncTimeResponse.isIsGIEligible()) {
+                builder.setMessage(" For Final Assessment – Click Yes\n\n Need more time to Study ?– Click No \n(After completing your study go back to Home page and Click on START EVALUATION)");
+            } else {
+                builder.setMessage("Please Complete GI Training");
+            }
+
+        }
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (syncTimeResponse.isIsEligible())
+                    startActivity(new Intent(StudyMaterialActivity.this, StartExamActivity.class));
+                else {
+                    dialog.cancel();
+                    finish();
+                    finish();
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
     private void startSessionTimer(long millis) {
@@ -376,7 +384,18 @@ public class StudyMaterialActivity extends BaseActivity implements IResponseSubc
         if (response instanceof SyncTimeResponse) {
             if (response.getStatusNo() == 0) {
                 if (((SyncTimeResponse) response).isIsLogin()) {
+                    syncTimeResponse = (SyncTimeResponse) response;
 
+                    if (type == Constants.GENERAL_INSURANCE) {
+                        if (syncTimeResponse.isIsGIEligible()) {
+                            onFinishSyncTimer();
+                        }
+                    }
+                    if (type == Constants.LIFE_INSURANCE) {
+                        if (syncTimeResponse.isIsLIEligible()) {
+                            onFinishSyncTimer();
+                        }
+                    }
                     loginEntity.setCurrentStudyTime(((SyncTimeResponse) response).getCurrentStudyTime());
                     loginEntity.setIsEligible(((SyncTimeResponse) response).isIsEligible());
                     loginEntity.setIsEligibleGI(((SyncTimeResponse) response).isIsGIEligible());
