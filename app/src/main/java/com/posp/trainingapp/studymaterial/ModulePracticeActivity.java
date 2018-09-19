@@ -82,6 +82,7 @@ public class ModulePracticeActivity extends BaseActivity implements View.OnClick
                             finish();
                             startActivity(new Intent(ModulePracticeActivity.this, ModuleResultActivity.class)
                                     .putExtra("marksObtained", marksObtained)
+                                    .putExtra(Constants.TYPE, type)
                                     .putExtra("totalNoOfQuest", totalNoOfQuest)
                                     .putExtra("NAME", loginEntity.getFullName())
                                     .putExtra("MODULE", modulePracticeResponse.getModuleNo()));

@@ -76,7 +76,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:text="You need to take the 15 hours module on the app or on the desktop as desirable."
+                            android:text="You need to take the 30 hours module on the app or on the desktop as desirable."
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="@color/application_primary_text_color" />
                     </LinearLayout>

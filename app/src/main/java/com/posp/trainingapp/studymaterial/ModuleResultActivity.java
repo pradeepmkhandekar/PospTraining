@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.posp.trainingapp.R;
 import com.posp.trainingapp.core.models.StudyMaterialEntity;
 import com.posp.trainingapp.home.HomeActivity;
 import com.posp.trainingapp.utility.BaseActivity;
+import com.posp.trainingapp.utility.Constants;
 import com.posp.trainingapp.webviews.studymaterial.StudyMaterialActivity;
 
 public class ModuleResultActivity extends BaseActivity implements View.OnClickListener {
@@ -20,6 +22,7 @@ public class ModuleResultActivity extends BaseActivity implements View.OnClickLi
     int marksObtained, totalNoOfQuest, module;
     String name;
     Button btnNextModule;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class ModuleResultActivity extends BaseActivity implements View.OnClickLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        type = getIntent().getIntExtra(Constants.TYPE, 0);
         intilize();
         setListener();
         bindData();
@@ -74,7 +77,8 @@ public class ModuleResultActivity extends BaseActivity implements View.OnClickLi
                 if (!btnNextModule.getText().equals("Home")) {
                     StudyMaterialEntity studyMaterialEntity = StudyMaterialAvailable.studyMaterialEntityList.get(module);
                     startActivity(new Intent(ModuleResultActivity.this, StudyMaterialActivity.class)
-                            .putExtra("STUDY_MATERIAL", studyMaterialEntity));
+                            .putExtra("STUDY_MATERIAL", studyMaterialEntity)
+                            .putExtra(Constants.TYPE, type));
                     finish();
                 } else {
                     finish();
@@ -84,8 +88,26 @@ public class ModuleResultActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.tvViewAns:
-                startActivity(new Intent(ModuleResultActivity.this, ViewAnswerActivity.class));
+                startActivity(new Intent(ModuleResultActivity.this, ViewAnswerActivity.class)
+                        .putExtra(Constants.TYPE, type));
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
