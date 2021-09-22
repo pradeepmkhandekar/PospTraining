@@ -10,7 +10,7 @@
     tools:context="com.posp.trainingapp.login.LoginActivity"
     tools:showIn="@layout/activity_login">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/gap"
@@ -32,13 +32,13 @@
                     android:padding="@dimen/gap"
                     android:src="@drawable/logo" />
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="bottom"
                     app:hintTextAppearance="@style/Base.TextAppearance.AppCompat.Medium">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tieEmail"
                         style="@style/JEditText"
                         android:layout_width="match_parent"
@@ -49,16 +49,16 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:layout_marginTop="@dimen/gap"
                     android:gravity="bottom"
                     app:hintTextAppearance="@style/Base.TextAppearance.AppCompat.Medium">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiePassword"
                         style="@style/JEditText"
                         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                         android:hint="Password"
                         android:inputType="textPassword" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -126,7 +126,7 @@
         </ScrollView>
 
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

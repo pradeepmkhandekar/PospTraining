@@ -10,7 +10,7 @@
     tools:context="com.posp.trainingapp.exam.StartExamActivity"
     tools:showIn="@layout/activity_start_exam">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="70">
@@ -236,7 +236,7 @@
         </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/llexamTimer"

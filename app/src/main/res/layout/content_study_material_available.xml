@@ -20,11 +20,11 @@
         android:text="Study Material On Web Link Click Here"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStudyMaterial"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
